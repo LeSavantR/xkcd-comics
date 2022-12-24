@@ -8,4 +8,6 @@ export interface Comic {
   img: string
   title: string
   days: string
+  width: number
+  height: number
 }

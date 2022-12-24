@@ -27,20 +27,20 @@ const Home: React.FC<HomeInterface> = ({ latestComics }) => {
         <Grid.Container gap={4} justify={'center'}>
           {latestComics.map((comic) => (
               <Grid key={comic.id}>
-                <Card isPressable isHoverable variant='bordered'>
-                  <Card.Body>
-                    <Link href={`/comics/${comic.id}`}>
-                      <Image width={320} height={240} alt={comic.alt} src={comic.img} />
-                    </Link>
-                  </Card.Body>
-                  <Card.Footer>
-                    <Row justify='center' align='center'>
-                      <Text h6>
-                        {comic.title}
-                      </Text>
-                    </Row>
-                  </Card.Footer>
-                </Card>
+                <Link href={`/comics/${comic.id}`}>
+                  <Card isPressable isHoverable variant='bordered' borderWeight='bold'>
+                    <Card.Body css={{ p: 12 }}>
+                      <Image width={320} height={320} alt={comic.alt} src={comic.img} />
+                    </Card.Body>
+                    <Card.Footer isBlurred>
+                      <Row justify='center' align='center'>
+                        <Text h6>
+                          {comic.title}
+                        </Text>
+                      </Row>
+                    </Card.Footer>
+                  </Card>
+                </Link>
               </Grid>
             ))}
         </Grid.Container>
