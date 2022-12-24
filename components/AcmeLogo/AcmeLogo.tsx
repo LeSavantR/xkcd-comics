@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 export interface AcmeLogoInterface {}
 
 const AcmeLogo : React.FC<AcmeLogoInterface> = () => {
@@ -19,7 +19,7 @@ const AcmeLogo : React.FC<AcmeLogoInterface> = () => {
 			fillRule="evenodd"
 			/>
 		</svg>
-	);
-};
+	)
+}
 
-export default AcmeLogo;
+export default AcmeLogo

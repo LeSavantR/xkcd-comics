@@ -1,5 +1,5 @@
-import React from 'react';
-import Head from 'next/head';
+import React from 'react'
+import Head from 'next/head'
 
 export interface PageLayoutInterface {
   title?: string
@@ -19,7 +19,7 @@ const PageLayout : React.FC<PageLayoutInterface> = ({ title='XKCD', children }) 
         {children}
       </main>
 		</>
-	);
-};
+	)
+}
 
-export default PageLayout;
+export default PageLayout

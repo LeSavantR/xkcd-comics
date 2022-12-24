@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useTheme as useNextTheme } from 'next-themes'
 import { Navbar, Switch, useTheme } from '@nextui-org/react'
+
 export interface ModeButtonInterface {}
+
 
 const ModeButton : React.FC<ModeButtonInterface> = () => {
   const { setTheme } = useNextTheme()
   const { isDark, type } = useTheme()
-  const [ icon, setIcon ] = useState('')
-
-  useEffect(() => {
-    setIcon(type === 'dark' ? '🌙' : '🌞')
-  }, [type])
-
 	return (
     <>
       <Navbar.Brand color="inherit">
-        {icon}
+        {type === 'dark' ? '🌙' : '🌞'}
       </Navbar.Brand>
       <Navbar.Item>
         <Switch

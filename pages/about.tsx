@@ -3,11 +3,12 @@ import { PageLayout } from "@c/PageLayout"
 import { Heading } from "@c/Heading"
 import { ModeButton } from "@c/ModeButton"
 
-export interface ComicInterface {}
+export interface AboutInterface {}
 
-const Comic: React.FC<ComicInterface> = () => {
+
+const About: React.FC<AboutInterface> = () => {
   return (
-    <PageLayout title="XKCD - Comic">
+    <PageLayout title="XKCD - About">
       <Heading>
         <ModeButton />
       </Heading>
@@ -15,4 +16,4 @@ const Comic: React.FC<ComicInterface> = () => {
   )
 }
 
-export default Comic
+export default About

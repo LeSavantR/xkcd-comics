@@ -1,20 +1,13 @@
-import { Heading, PageLayout } from '@c/index'
-import { Card, Container, Row, Text } from '@nextui-org/react'
-import { GetStaticPropsContext } from 'next'
-import fs from 'fs/promises'
 import React from 'react'
-
-export interface Comic {
-  id: number
-  month: string
-  link: string
-  year: string
-  safe_title: string
-  alt: string
-  img: string
-  title: string
-  days: string
-}
+import fs from 'fs/promises'
+import { Card, Container, Grid, Row, Spacer, Text } from '@nextui-org/react'
+import { GetStaticPropsContext } from 'next'
+import { PageLayout } from '@c/PageLayout'
+import { Heading } from '@c/Heading'
+import { ModeButton } from '@c/ModeButton'
+import { Comic } from '@m/Comic.model'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export interface HomeInterface {
   latestComics: Comic[]
@@ -23,19 +16,34 @@ export interface HomeInterface {
 const Home: React.FC<HomeInterface> = ({ latestComics }) => {
   return (
     <PageLayout title='XKCD - Home'>
-      <Heading />
+      <Heading>
+        <ModeButton />
+      </Heading>
       <Container>
-        <Card css={{ $$cardColor: '$colors$primary' }}>
-          <Card.Body>
-            <Row justify="center" align="center">
-              <Text h6 size={15} color="white" css={{ m: 0 }}>
-                NextUI gives you the best developer experience with all the features
-                you need for building beautiful and modern websites and
-                applications.
-              </Text>
-            </Row>
-          </Card.Body>
-        </Card>
+        <Row justify='center' align='center'>
+          <Spacer y={5} />
+          <Text h2 size='$3xl' weight='bold'>Latest Comics</Text>
+        </Row>
+        <Grid.Container gap={4} justify={'center'}>
+          {latestComics.map((comic) => (
+              <Grid key={comic.id}>
+                <Card isPressable isHoverable variant='bordered'>
+                  <Card.Body>
+                    <Link href={`/comics/${comic.id}`}>
+                      <Image width={320} height={240} alt={comic.alt} src={comic.img} />
+                    </Link>
+                  </Card.Body>
+                  <Card.Footer>
+                    <Row justify='center' align='center'>
+                      <Text h6>
+                        {comic.title}
+                      </Text>
+                    </Row>
+                  </Card.Footer>
+                </Card>
+              </Grid>
+            ))}
+        </Grid.Container>
       </Container>
     </PageLayout>
   )
@@ -43,9 +51,9 @@ const Home: React.FC<HomeInterface> = ({ latestComics }) => {
 
 export default Home
 
-export async function getStaticProps (ctx: GetStaticPropsContext) {
+export async function getStaticProps (_ctx: GetStaticPropsContext) {
   const files = await fs.readdir('./comics')
-  const latestComicsFiles = files.slice(0, 5)
+  const latestComicsFiles = files.slice(0, 12)
 
   const promisesReadFiles: Promise<Comic>[] = latestComicsFiles.map(async (file) => {
     const content = await fs.readFile(`./comics/${file}`, 'utf-8')

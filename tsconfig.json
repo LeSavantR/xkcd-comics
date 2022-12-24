@@ -2,7 +2,8 @@
   "compilerOptions": {
     "paths": {
       "@c/*": ["./components/*"],
-      "@s/*": ["./styles/*"]
+      "@s/*": ["./styles/*"],
+      "@m/*": ["./models/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
