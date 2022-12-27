@@ -20,8 +20,8 @@ const Home: React.FC<HomeInterface> = ({ latestComics }) => {
         <ModeButton />
       </Heading>
       <Container>
+        <Spacer y={5} />
         <Row justify='center' align='center'>
-          <Spacer y={5} />
           <Text h2 size='$3xl' weight='bold'>Latest Comics</Text>
         </Row>
         <Grid.Container gap={4} justify={'center'}>
