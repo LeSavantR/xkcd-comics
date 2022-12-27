@@ -1,13 +1,13 @@
 import React from 'react'
 import fs from 'fs/promises'
-import { Card, Container, Grid, Row, Spacer, Text } from '@nextui-org/react'
+import { Card, Container, Grid, Row, Spacer, Text, Image } from '@nextui-org/react'
 import { GetStaticPropsContext } from 'next'
 import { PageLayout } from '@c/PageLayout'
 import { Heading } from '@c/Heading'
 import { ModeButton } from '@c/ModeButton'
 import { Comic } from '@m/Comic.model'
-import Image from 'next/image'
 import Link from 'next/link'
+import { FooterLayout } from '@c/FooterLayout'
 
 export interface HomeInterface {
   latestComics: Comic[]
@@ -24,13 +24,13 @@ const Home: React.FC<HomeInterface> = ({ latestComics }) => {
         <Row justify='center' align='center'>
           <Text h2 size='$3xl' weight='bold'>Latest Comics</Text>
         </Row>
-        <Grid.Container gap={4} justify={'center'}>
+        <Grid.Container gap={4} justify='center'>
           {latestComics.map((comic) => (
-              <Grid key={comic.id}>
+              <Grid key={comic.id} xs={2}>
                 <Link href={`/comics/${comic.id}`}>
                   <Card isPressable isHoverable variant='bordered' borderWeight='bold'>
                     <Card.Body css={{ p: 12 }}>
-                      <Image width={320} height={320} alt={comic.alt} src={comic.img} />
+                      <Image objectFit='cover' alt={comic.alt} src={comic.img} />
                     </Card.Body>
                     <Card.Footer isBlurred>
                       <Row justify='center' align='center'>
@@ -45,6 +45,7 @@ const Home: React.FC<HomeInterface> = ({ latestComics }) => {
             ))}
         </Grid.Container>
       </Container>
+      <FooterLayout />
     </PageLayout>
   )
 }

@@ -3,11 +3,11 @@ import { PageLayout } from "@c/PageLayout"
 import { Heading } from "@c/Heading"
 import { ModeButton } from "@c/ModeButton"
 import { Button, Card, Container, Grid, Row, Spacer, Text } from "@nextui-org/react"
-import Image from "next/image"
+import { Image } from "@nextui-org/react"
 import { Comic } from "@m/Comic.model"
 import { readFile, readdir, stat } from "fs/promises"
-import Link from "next/link"
 import { basename } from "path"
+import { FooterLayout } from "@c/FooterLayout"
 
 export interface ComicInterface {
   id: number
@@ -23,7 +23,7 @@ export interface ComicInterface {
   children?: React.ReactNode
 }
 
-const Comic: React.FC<ComicInterface> = ({ img, alt, title,width, height, hasPrev, prevId, hasNext, nextId }) => {
+const ThisComic: React.FC<ComicInterface> = ({ img, alt, title,width, height, hasPrev, prevId, hasNext, nextId }) => {
   return (
     <PageLayout title="XKCD - Comic">
       <Heading>
@@ -39,24 +39,25 @@ const Comic: React.FC<ComicInterface> = ({ img, alt, title,width, height, hasPre
           <Card css={{ mw: '800px', justifyContent: 'center', margin: '0 auto' }}>
             <Card.Body>
               <Grid.Container justify="center">
-                <Image src={img} alt={alt} width={width} height={height} />
+                <Image objectFit="contain" src={img} alt={alt} width={width} height={height} />
               </Grid.Container>
             </Card.Body>
             <Spacer y={1} />
             <Card.Footer>
               <Row justify="space-evenly">
-                {hasPrev && <Link href={`/comics/${prevId}`}>◀️ Anterior</Link>}
-                {hasNext && <Link href={`/comics/${nextId}`}>Siguiente ▶️</Link>}
+                {hasPrev && <Button as={'a'} href={`/comics/${prevId}`}>◀️ Anterior</Button>}
+                {hasNext && <Button as={'a'} href={`/comics/${nextId}`}>Siguiente ▶️</Button>}
               </Row>
             </Card.Footer>
           </Card>
         </Grid>
       </Container>
+      <FooterLayout />
     </PageLayout>
   )
 }
 
-export default Comic
+export default ThisComic
 
 export async function getStaticPaths () {
 
