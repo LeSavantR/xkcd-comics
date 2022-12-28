@@ -5,6 +5,7 @@ import { ModeButton } from "@c/ModeButton"
 import { Container } from "@nextui-org/react"
 import { FooterLayout } from "@c/FooterLayout"
 import { GetServerSidePropsContext } from "next"
+import { search } from "@services/search"
 
 export interface SearchInterface {
   query: string
@@ -30,11 +31,14 @@ export default Search
 export async function getServerSideProps (context: GetServerSidePropsContext) {
 
   const { query } = context
-  const { q = '' } = query
+  const { q } = query
+
+  const { results } = await search(q)
 
   return {
     props: {
-      query: q
+      query: q,
+      results
     }
   }
 }
