@@ -1,17 +1,23 @@
 import React from 'react'
+
 import fs from 'fs/promises'
-import { Card, Container, Grid, Row, Spacer, Text, Image } from '@nextui-org/react'
+
+import Link from 'next/link'
 import { GetStaticPropsContext } from 'next'
+
+import { Card, Container, Grid, Row, Spacer, Text, Image } from '@nextui-org/react'
+
 import { PageLayout } from '@c/PageLayout'
 import { Heading } from '@c/Heading'
 import { ModeButton } from '@c/ModeButton'
 import { Comic } from '@m/Comic.model'
-import Link from 'next/link'
 import { FooterLayout } from '@c/FooterLayout'
+
 
 export interface HomeInterface {
   latestComics: Comic[]
 }
+
 
 const Home: React.FC<HomeInterface> = ({ latestComics }) => {
   return (
@@ -24,25 +30,26 @@ const Home: React.FC<HomeInterface> = ({ latestComics }) => {
         <Row justify='center' align='center'>
           <Text h2 size='$3xl' weight='bold'>Latest Comics</Text>
         </Row>
-        <Grid.Container gap={4} justify='center'>
+        <Spacer y={5} />
+        <Grid.Container gap={4} justify='center' css={{ 'padding': '0 120px 0 120px'}}>
           {latestComics.map((comic) => (
-              <Grid key={comic.id} xs={2}>
-                <Link href={`/comics/${comic.id}`}>
-                  <Card isPressable isHoverable variant='bordered' borderWeight='bold'>
-                    <Card.Body css={{ p: 12 }}>
-                      <Image objectFit='cover' alt={comic.alt} src={comic.img} />
-                    </Card.Body>
-                    <Card.Footer isBlurred>
-                      <Row justify='center' align='center'>
-                        <Text h6>
-                          {comic.title}
-                        </Text>
-                      </Row>
-                    </Card.Footer>
-                  </Card>
-                </Link>
-              </Grid>
-            ))}
+            <Grid key={comic.id} xs={12} sm={6} md={2} justify={'center'}>
+              <Link href={`/comics/${comic.id}`}>
+                <Card isPressable isHoverable variant='bordered' borderWeight='bold'>
+                  <Card.Body css={{ p: 12 }}>
+                    <Card.Image objectFit='cover' alt={comic.alt} src={comic.img} />
+                  </Card.Body>
+                  <Card.Footer isBlurred>
+                    <Row justify='center' align='center'>
+                      <Text h6>
+                        {comic.title}
+                      </Text>
+                    </Row>
+                  </Card.Footer>
+                </Card>
+              </Link>
+            </Grid>
+          ))}
         </Grid.Container>
       </Container>
       <FooterLayout />

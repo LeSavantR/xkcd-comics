@@ -18,7 +18,7 @@ const Heading : React.FC<HeadingInterface> = ({ brand='XKCD', children }) => {
           </Text>
         </Link>
       </Navbar.Brand>
-      <Navbar.Content hideIn="xs">
+      <Navbar.Content variant={'highlight-rounded'} enableCursorHighlight activeColor={'primary'} hideIn="xs">
         <Navbar.Link href="/">Home</Navbar.Link>
         <Navbar.Link href="/comics/">Comics</Navbar.Link>
         <Navbar.Link href="/search">Search</Navbar.Link>
