@@ -15,6 +15,7 @@ const ModeButton : React.FC<ModeButtonInterface> = () => {
       </Navbar.Brand>
       <Navbar.Item>
         <Switch
+          color={'error'}
           checked={isDark}
           onChange={({ target }) => setTheme(target.checked ? 'dark' : 'light')}
         />
