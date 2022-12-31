@@ -12,14 +12,15 @@ import { Heading } from '@c/Heading'
 import { ModeButton } from '@c/ModeButton'
 import { Comic } from '@m/Comic.model'
 import { FooterLayout } from '@c/FooterLayout'
+import { search } from '@services/search'
 
 
 export interface HomeInterface {
-  latestComics: Comic[]
+  results: Comic[]
 }
 
 
-const Home: React.FC<HomeInterface> = ({ latestComics }) => {
+const Home: React.FC<HomeInterface> = ({ results }) => {
   return (
     <PageLayout title='XKCD - Home'>
       <Heading>
@@ -31,8 +32,8 @@ const Home: React.FC<HomeInterface> = ({ latestComics }) => {
           <Text h2 size='$3xl' weight='bold'>Latest Comics</Text>
         </Row>
         <Spacer y={5} />
-        <Grid.Container gap={4} justify='center' css={{ 'padding': '0 120px 0 120px'}}>
-          {latestComics.map((comic) => (
+        <Grid.Container gap={4} justify='center' css={{ 'padding': '0 auto'}}>
+          {results.map((comic) => (
             <Grid key={comic.id} xs={12} sm={6} md={2} justify={'center'}>
               <Link href={`/comics/${comic.id}`}>
                 <Card isPressable isHoverable variant='bordered' borderWeight='bold'>
@@ -60,18 +61,18 @@ const Home: React.FC<HomeInterface> = ({ latestComics }) => {
 export default Home
 
 export async function getStaticProps (_ctx: GetStaticPropsContext) {
-  const files = await fs.readdir('./comics')
-  const latestComicsFiles = files.slice(0, 12)
+  // const files = await fs.readdir('./comics')
+  // const latestComicsFiles = files.slice(0, 12)
 
-  const promisesReadFiles: Promise<Comic>[] = latestComicsFiles.map(async (file) => {
-    const content = await fs.readFile(`./comics/${file}`, 'utf-8')
-    return JSON.parse(content)
-  })
+  // const promisesReadFiles: Promise<Comic>[] = latestComicsFiles.map(async (file) => {
+  //   const content = await fs.readFile(`./comics/${file}`, 'utf-8')
+  //   return JSON.parse(content)
+  // })
 
-  const latestComics = await Promise.all(promisesReadFiles)
+  const { results } = await search('')
   return {
     props: {
-      latestComics
+      results
     }
   }
 }
