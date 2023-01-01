@@ -26,7 +26,7 @@ const Home: React.FC<HomeInterface> = ({ results }) => {
       <Heading>
         <ModeButton />
       </Heading>
-      <Container>
+      <Container responsive css={{ 'maxWidth': '85vw'}}>
         <Spacer y={5} />
         <Row justify='center' align='center'>
           <Text h2 size='$3xl' weight='bold'>Latest Comics</Text>
@@ -36,7 +36,7 @@ const Home: React.FC<HomeInterface> = ({ results }) => {
           {results.map((comic) => (
             <Grid key={comic.id} xs={12} sm={6} md={2} justify={'center'}>
               <Link href={`/comics/${comic.id}`}>
-                <Card isPressable isHoverable variant='bordered' borderWeight='bold'>
+                <Card isPressable isHoverable variant='shadow' borderWeight='bold'>
                   <Card.Body css={{ p: 12 }}>
                     <Card.Image objectFit='cover' alt={comic.alt} src={comic.img} />
                   </Card.Body>
@@ -61,14 +61,6 @@ const Home: React.FC<HomeInterface> = ({ results }) => {
 export default Home
 
 export async function getStaticProps (_ctx: GetStaticPropsContext) {
-  // const files = await fs.readdir('./comics')
-  // const latestComicsFiles = files.slice(0, 12)
-
-  // const promisesReadFiles: Promise<Comic>[] = latestComicsFiles.map(async (file) => {
-  //   const content = await fs.readFile(`./comics/${file}`, 'utf-8')
-  //   return JSON.parse(content)
-  // })
-
   const { results } = await search('')
   return {
     props: {
