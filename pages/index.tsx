@@ -1,7 +1,5 @@
 import React from 'react'
 
-import fs from 'fs/promises'
-
 import Link from 'next/link'
 import { GetStaticPropsContext } from 'next'
 
